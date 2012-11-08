@@ -87,16 +87,16 @@ $(TEST_EBIN)/%.beam: $(TESTDIR)/%.jxa $(TEST_EBIN)/.d $(BEAMDIR)/joxa-compiler.b
 jxa: $(SRCBEAMS)
 
 build:
-	$(REBAR) compile
+	$(CURDIR)/rebar compile
 
 get-deps:
-	$(REBAR) get-deps
+	$(CURDIR)/rebar get-deps
 
 shell: build $(TESTBEAMS)
 	$(ERL) $(ERLFLAGS) -s joxa main -s init stop
 
 jxa-clean:
-	$(REBAR) skip_deps=true clean
+	$(CURDIR)/rebar skip_deps=true clean
 	rm -rf $(APPDIR)/joxa
 	rm -rf $(APPDIR)/.bootstrap
 	rm -rf $(APPDIR)/_build
@@ -108,7 +108,7 @@ jxa-distclean: jxa-clean
 test: build proper eunit cucumber
 
 eunit: build
-	$(REBAR) skip_deps=true eunit
+	$(CURDIR)/rebar skip_deps=true eunit
 	$(ERL) $(ERLFLAGS) $(TEST_FLAGS) -s 'joxa-build-support' main eunit $(BEAMDIR) -s init stop
 	$(ERL) $(ERLFLAGS) $(TEST_FLAGS) -s 'joxa-build-support' main eunit $(TEST_EBIN) -s init stop
 
@@ -120,7 +120,7 @@ cucumber: eunit $(SRCBEAMS) $(TESTBEAMS)
 	$(ERL) $(ERLFLAGS) $(TEST_FLAGS) -s 'joxa-build-support' main cucumberl $(CURDIR) -s init stop
 
 bare-escript:
-	$(REBAR) skip_deps=true escriptize
+	$(CURDIR)/rebar skip_deps=true escriptize
 
 escript: build bare-escript
 

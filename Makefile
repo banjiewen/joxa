@@ -3,9 +3,6 @@ ERL=$(shell which erl)
 ERLC=$(shell which erlc)
 REBAR=$(shell which rebar)
 
-ifeq ($(REBAR),)
-	$(error "Rebar not available on this system")
-endif
 # Project Directories (local to $(CURDIR))
 
 SRCDIR=$(abspath $(CURDIR)/src)
